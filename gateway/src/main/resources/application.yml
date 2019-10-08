@@ -1,26 +1,27 @@
 server:
    port: 9080
-application:
-   name: ^project.artifactId^
-   description: ^project.name^
-   version: ^project.version^
 eureka:
   client:
     registerWithEureka: false
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+  
 spring:
   application:
-    name: ^project.artifactId^
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      routes:
-      - id: micro-service
-        uri: lb://micro-service
-        predicates:
-        - Path=/service/**
-        filters:
-        - RewritePath=/service/(?<path>.*), /$\{path}
+    name: gateway-service
+zuul:
+  ignored-services:
+   - path=*
+  routes: 
+    loan-service:
+      path: /api/loanapplications/
+    customer-service:
+      path: /api/customers/
+    service-id: 
+      LOAN-SERVICE
+      CUSTOMER-SERVICE
+          
+jwt:
+  header: Authorization
+  secret: $2a$10$HlzMvb9OQayvlWfX5pzJTeZvH30eKwnc6gE0C3idjDvbQt4XJMTki
+       
