@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping
 @RequiredArgsConstructor
 public class AuthenticationController {
-
     @Autowired
     private AuthenticationService authenticationService;
 
